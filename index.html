@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07080b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Live public dashboard for a FTMO $10,000 2-step Phase 1 DEMO trading desk.">
+  <title>FTMO Desk Live · Demo</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect fill='%2307080b' width='32' height='32' rx='6'/><path d='M8 20l4-8 5 6 3-4 4 6' stroke='%23e7c46a' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <style>
+    :root {
+      --bg: #07080b;
+      --bg-2: #0c0e13;
+      --card: #131821;
+      --card-2: #191f2b;
+      --line: rgba(255,255,255,.08);
+      --line-strong: rgba(255,255,255,.14);
+      --text: #f2f4f7;
+      --muted: #8b93a3;
+      --faint: #5c6473;
+      --green: #3ee07a;
+      --green-dim: rgba(62,224,122,.14);
+      --red: #ff5d73;
+      --red-dim: rgba(255,93,115,.14);
+      --gold: #e7c46a;
+      --gold-dim: rgba(231,196,106,.14);
+      --blue: #7aa7ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+      --safe-t: env(safe-area-inset-top, 0px);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-l: env(safe-area-inset-left, 0px);
+      --safe-r: env(safe-area-inset-right, 0px);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Inter, Roboto, Helvetica, Arial, sans-serif;
+      font-feature-settings: "ss01" on, "tnum" on;
+      line-height: 1.45;
+      min-height: 100dvh;
+      -webkit-font-smoothing: antialiased;
+      padding: calc(18px + var(--safe-t)) calc(16px + var(--safe-r)) calc(28px + var(--safe-b)) calc(16px + var(--safe-l));
+      background:
+        radial-gradient(1200px 500px at 50% -80px, rgba(231,196,106,.08), transparent 55%),
+        var(--bg);
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    header.top {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; margin-bottom: 18px;
+    }
+    .brand { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .brand h1 {
+      font-size: 13px; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--muted); margin: 0;
+    }
+    .brand .sub { font-size: 12px; color: var(--faint); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold-dim); color: var(--gold);
+      border: 1px solid rgba(231,196,106,.28);
+      border-radius: 999px; padding: 5px 10px;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; flex-shrink: 0;
+    }
+    .badge i {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--gold);
+      box-shadow: 0 0 8px var(--gold);
+    }
+    .hero {
+      background: linear-gradient(180deg, var(--card-2), var(--card));
+      border: 1px solid var(--line); border-radius: 22px;
+      padding: 22px 20px 18px; box-shadow: var(--shadow); margin-bottom: 12px;
+    }
+    .label { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .balance {
+      font-variant-numeric: tabular-nums;
+      font-size: clamp(36px, 11vw, 52px);
+      font-weight: 650; letter-spacing: -0.04em;
+      margin: 4px 0 2px; line-height: 1.05;
+    }
+    .meta-row { display: flex; flex-wrap: wrap; gap: 8px 14px; color: var(--muted); font-size: 13px; }
+    .meta-row strong { color: var(--text); font-weight: 600; }
+    .updated { color: var(--faint); }
+    .pos { color: var(--green); }
+    .neg { color: var(--red); }
+    .grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+    @media (min-width: 560px) {
+      .grid.two, .grid.stats { grid-template-columns: 1fr 1fr; }
+      .span-2 { grid-column: span 2; }
+    }
+    .card {
+      background: var(--card); border: 1px solid var(--line);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .card h2 {
+      margin: 0 0 12px; font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--muted); font-weight: 700;
+    }
+    .progress-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 8px; }
+    .progress-head .pct { font-size: 20px; font-weight: 650; letter-spacing: -0.03em; }
+    .bar {
+      height: 10px; border-radius: 999px; background: #0b0d12;
+      border: 1px solid var(--line); overflow: hidden;
+    }
+    .bar > span {
+      display: block; height: 100%; width: 0;
+      background: linear-gradient(90deg, #b8943c, var(--gold), #f6e2a4);
+      border-radius: inherit; transition: width .6s ease;
+    }
+    .progress-foot { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: var(--muted); }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stat .v { font-size: 22px; font-weight: 650; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .stat .s { font-size: 12px; color: var(--muted); }
+    .meter { margin-top: 10px; }
+    .meter .bar { height: 7px; }
+    .meter .bar > span.ok { background: linear-gradient(90deg, #1f8a4c, var(--green)); }
+    .meter .bar > span.warn { background: linear-gradient(90deg, #a35b00, var(--gold)); }
+    .meter .bar > span.bad { background: linear-gradient(90deg, #a31d33, var(--red)); }
+    .empty { color: var(--faint); font-size: 13px; padding: 6px 0 2px; }
+    .pos-list, .trade-list { display: flex; flex-direction: column; gap: 8px; }
+    .row {
+      background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 12px; padding: 12px 12px 10px;
+    }
+    .row .r1 { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .sym { font-weight: 700; letter-spacing: .01em; }
+    .dir {
+      font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: 1px;
+    }
+    .dir.buy { background: var(--green-dim); color: var(--green); }
+    .dir.sell { background: var(--red-dim); color: var(--red); }
+    .px { font-variant-numeric: tabular-nums; font-size: 13px; color: var(--muted); }
+    .px b { color: var(--text); font-weight: 600; }
+    .r2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; font-size: 12px; color: var(--muted); }
+    .r2 span { display: block; color: var(--text); font-variant-numeric: tabular-nums; margin-top: 1px; }
+    .session-tag { font-size: 11px; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; font-weight: 600; }
+    .date { font-size: 11px; color: var(--faint); margin-top: 6px; }
+    svg.chart { width: 100%; height: 200px; display: block; }
+    .sched { display: flex; flex-direction: column; gap: 8px; }
+    .sched-row {
+      display: grid; grid-template-columns: 92px 1fr; gap: 10px; align-items: start;
+      padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13px;
+    }
+    .sched-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .sched-row .k { color: var(--muted); font-weight: 600; }
+    .times { display: flex; flex-wrap: wrap; gap: 6px; }
+    .times em, .chip {
+      font-style: normal; background: var(--bg-2); border: 1px solid var(--line);
+      border-radius: 999px; padding: 2px 8px; font-variant-numeric: tabular-nums;
+      font-size: 12px; color: var(--text);
+    }
+    .times em.next, .chip.next { border-color: rgba(231,196,106,.45); color: var(--gold); background: var(--gold-dim); }
+    .nextbox {
+      margin-top: 12px; padding: 12px; border-radius: 12px;
+      background: var(--gold-dim); border: 1px solid rgba(231,196,106,.25);
+    }
+    .nextbox .k { color: var(--gold); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; }
+    .nextbox .v { font-size: 16px; font-weight: 650; margin-top: 2px; }
+    .nextbox .s { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    footer.note {
+      margin-top: 18px; color: var(--faint); font-size: 12px; line-height: 1.55;
+    }
+    footer.note a { color: var(--muted); }
+    .banner {
+      display: none; margin-bottom: 12px; padding: 10px 12px; border-radius: 12px;
+      background: var(--red-dim); border: 1px solid rgba(255,93,115,.3);
+      color: var(--red); font-size: 13px;
+    }
+    .banner.show { display: block; }
+    .skeleton .balance, .skeleton .v { background: #1c2230; color: transparent; border-radius: 8px; }
+    @media (prefers-reduced-motion: reduce) {
+      .bar > span { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div id="banner" class="banner" role="status"></div>
+    <header class="top">
+      <div class="brand">
+        <h1>FTMO Desk Live</h1>
+        <div class="sub">$10,000 · 2-step Phase 1</div>
+      </div>
+      <div class="badge" title="This is a demo account"><i></i> Demo</div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div class="label">Balance</div>
+      <div class="balance" id="balance">—</div>
+      <div class="meta-row">
+        <span>Equity <strong id="equity">—</strong></span>
+        <span id="eq-delta"></span>
+        <span class="updated" id="updated">Waiting for data…</span>
+      </div>
+    </section>
+
+    <div class="grid two">
+      <section class="card span-2">
+        <h2>Progress to $11,000 target</h2>
+        <div class="progress-head">
+          <div class="pct" id="target-pct">—</div>
+          <div class="label" id="target-usd"></div>
+        </div>
+        <div class="bar" aria-hidden="true"><span id="target-bar"></span></div>
+        <div class="progress-foot">
+          <span id="target-start">$10,000 start</span>
+          <span id="target-left"></span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Trading days</h2>
+        <div class="stat">
+          <div class="v" id="days">—</div>
+          <div class="s" id="days-sub">Minimum 4 days required</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Today’s P&amp;L</h2>
+        <div class="stat">
+          <div class="v" id="daily-pl">—</div>
+          <div class="s" id="daily-sub">vs desk stop −$200 · FTMO $500</div>
+        </div>
+        <div class="meter">
+          <div class="bar"><span id="daily-bar"></span></div>
+        </div>
+      </section>
+
+      <section class="card span-2">
+        <h2>Distance to $9,000 max-loss floor</h2>
+        <div class="stat">
+          <div class="v" id="floor-room">—</div>
+          <div class="s" id="floor-sub">Equity above the FTMO $9,000 floor</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="grid two" style="margin-top:12px">
+      <section class="card">
+        <h2>Open positions</h2>
+        <div id="open-positions"><div class="empty">No open positions</div></div>
+      </section>
+      <section class="card">
+        <h2>Pending orders</h2>
+        <div id="pending-orders"><div class="empty">No pending orders</div></div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Trade history</h2>
+      <div id="trades"><div class="empty">No trades yet</div></div>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Equity curve</h2>
+      <div id="chart-wrap"><div class="empty">Not enough points yet</div></div>
+    </section>
+
+    <section class="card" style="margin-top:12px">
+      <h2>Session schedule · Malaysia Time</h2>
+      <div class="sched" id="schedule"></div>
+      <div class="nextbox">
+        <div class="k">Next scheduled run</div>
+        <div class="v" id="next-label">—</div>
+        <div class="s" id="next-when">—</div>
+      </div>
+    </section>
+
+    <footer class="note">
+      This dashboard tracks a <strong>DEMO</strong> FTMO-style challenge account. It is not financial advice,
+      not a live funded account, and not affiliated with FTMO. Figures come from the desk’s own journal
+      and refresh automatically every 60 seconds.
+      <span id="pub-stamp"></span>
+    </footer>
+  </div>
+  <script>
+  const DEFAULT_SCHEDULE = [
+    { id: "asia", label: "Asia trader", days: "Mon–Fri", dow: [1,2,3,4,5], times: ["09:05","11:05","13:05"] },
+    { id: "london", label: "London trader", days: "Mon–Fri", dow: [1,2,3,4,5], times: ["16:05","18:05","20:05"] },
+    { id: "ny", label: "New York trader", days: "Mon–Fri", dow: [1,2,3,4,5], times: ["22:05","23:05"] },
+    { id: "risk", label: "Risk manager", days: "Mon–Fri", dow: [1,2,3,4,5], times: ["14:50","20:50"] },
+    { id: "journal", label: "Journal & daily report", days: "Tue–Sat", dow: [2,3,4,5,6], times: ["02:15"] }
+  ];
+  const MYT_OFFSET = 8 * 60;
+  const money = (n, d=2) => {
+    if (n == null || Number.isNaN(Number(n))) return "—";
+    const v = Number(n);
+    const sign = v < 0 ? "−" : "";
+    return sign + "$" + Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  };
+  const signed = (n) => {
+    if (n == null || Number.isNaN(Number(n))) return "—";
+    const v = Number(n);
+    const cls = v > 0 ? "pos" : v < 0 ? "neg" : "";
+    const sign = v > 0 ? "+" : v < 0 ? "−" : "";
+    return `<span class="${cls}">${sign}$${Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`;
+  };
+  const esc = (s) => String(s == null ? "" : s)
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  const px = (n) => (n == null || n === "") ? "—" : Number(n).toLocaleString("en-US", { maximumFractionDigits: 5 });
+
+  function nowMyt() {
+    return new Date(Date.now() + (MYT_OFFSET + new Date().getTimezoneOffset()) * 60000);
+  }
+  function parseHM(t) { const [h,m] = t.split(":").map(Number); return {h, m}; }
+  function nextRun(schedule) {
+    const n = nowMyt();
+    let best = null;
+    for (let day = 0; day <= 8; day++) {
+      const d = new Date(n.getTime() + day * 86400000);
+      const dow = d.getDay(); // 0 Sun
+      for (const s of schedule) {
+        if (!s.dow.includes(dow)) continue;
+        for (const tm of s.times) {
+          const {h,m} = parseHM(tm);
+          const at = new Date(d.getFullYear(), d.getMonth(), d.getDate(), h, m, 0);
+          if (at <= n) continue;
+          if (!best || at < best.at) best = { at, label: s.label, id: s.id, time: tm };
+        }
+      }
+    }
+    return best;
+  }
+  function fmtCountdown(at) {
+    const ms = at - nowMyt();
+    if (ms <= 0) return "due now";
+    const min = Math.round(ms / 60000);
+    if (min < 60) return `in ${min} min`;
+    const h = Math.floor(min / 60), m = min % 60;
+    if (h < 24) return m ? `in ${h}h ${m}m` : `in ${h}h`;
+    const days = Math.floor(h / 24), rh = h % 24;
+    return `in ${days}d ${rh}h`;
+  }
+  function fmtMytDate(at) {
+    const days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+    const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const same = nowMyt().toDateString() === at.toDateString();
+    const tomorrow = new Date(nowMyt().getTime()+86400000).toDateString() === at.toDateString();
+    const hm = String(at.getHours()).padStart(2,"0") + ":" + String(at.getMinutes()).padStart(2,"0");
+    if (same) return `today ${hm} MYT`;
+    if (tomorrow) return `tomorrow ${hm} MYT`;
+    return `${days[at.getDay()]} ${at.getDate()} ${months[at.getMonth()]} ${hm} MYT`;
+  }
+
+  function positionCard(p, pending) {
+    const side = (p.side || p.direction || "").toLowerCase();
+    const entry = p.open_price ?? p.price ?? p.entry;
+    return `<div class="row">
+      <div class="r1">
+        <div><span class="sym">${esc(p.symbol || "—")}</span><span class="dir ${side}">${esc(side || "—")}</span></div>
+        <div>${p.profit != null ? signed(p.profit) : (pending ? `<span class="session-tag">pending</span>` : "")}</div>
+      </div>
+      <div class="r2">
+        <div>Entry<span>${esc(px(entry))}</span></div>
+        <div>SL<span>${esc(px(p.sl))}</span></div>
+        <div>TP<span>${esc(px(p.tp))}</span></div>
+      </div>
+      <div class="date">${p.lots != null ? esc(p.lots) + " lot" : ""} ${p.open_time ? "· " + esc(p.open_time) : ""}</div>
+    </div>`;
+  }
+
+  function tradeCard(t) {
+    const side = (t.side || t.direction || "").toLowerCase();
+    const date = t.close_time_myt || t.close_time || t.date_myt || t.date || "";
+    return `<div class="row">
+      <div class="r1">
+        <div>
+          <span class="sym">${esc(t.symbol || "—")}</span>
+          <span class="dir ${side}">${esc(side || "—")}</span>
+          ${t.session ? `<span class="session-tag"> ${esc(t.session)}</span>` : ""}
+        </div>
+        <div>${signed(t.profit ?? t.result)}</div>
+      </div>
+      <div class="r2">
+        <div>Entry<span>${esc(px(t.entry ?? t.open_price))}</span></div>
+        <div>SL<span>${esc(px(t.sl))}</span></div>
+        <div>TP<span>${esc(px(t.tp))}</span></div>
+      </div>
+      <div class="date">${esc(date)}</div>
+    </div>`;
+  }
+
+  function drawChart(points) {
+    if (!points || points.length < 2) {
+      document.getElementById("chart-wrap").innerHTML = `<div class="empty">Not enough points yet</div>`;
+      return;
+    }
+    const w = 640, h = 200, l = 48, r = 16, t = 16, b = 28;
+    const vals = points.map(p => Number(p.equity ?? p.balance));
+    let min = Math.min(9000, ...vals, 10000);
+    let max = Math.max(11000, ...vals);
+    const pad = (max - min) * 0.08 || 50;
+    min -= pad; max += pad;
+    const x = (i) => l + (i / (points.length - 1)) * (w - l - r);
+    const y = (v) => t + (1 - (v - min) / (max - min)) * (h - t - b);
+    const coords = vals.map((v,i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`);
+    const area = `M ${x(0).toFixed(1)},${y(min).toFixed(1)} L ` + coords.join(" ") + ` L ${x(points.length-1).toFixed(1)},${y(min).toFixed(1)} Z`;
+    const last = vals[vals.length-1];
+    const guides = [9000, 10000, 11000].filter(g => g >= min && g <= max);
+    const guideLines = guides.map(g => {
+      const yy = y(g).toFixed(1);
+      const label = g === 11000 ? "target 11k" : g === 9000 ? "floor 9k" : "10k";
+      return `<line x1="${l}" x2="${w-r}" y1="${yy}" y2="${yy}" stroke="rgba(255,255,255,.08)" stroke-dasharray="4 4"/>
+        <text x="4" y="${Number(yy)+4}" fill="#8b93a3" font-size="11">${label}</text>`;
+    }).join("");
+    const firstT = points[0].t_label || points[0].t || "";
+    const lastT = points[points.length-1].t_label || points[points.length-1].t || "";
+    document.getElementById("chart-wrap").innerHTML = `<svg class="chart" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" role="img" aria-label="Equity curve">
+      ${guideLines}
+      <path d="${area}" fill="rgba(62,224,122,.10)"/>
+      <polyline points="${coords.join(" ")}" fill="none" stroke="${last>=10000 ? "#3ee07a" : "#ff5d73"}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${x(points.length-1).toFixed(1)}" cy="${y(last).toFixed(1)}" r="4" fill="${last>=10000 ? "#3ee07a" : "#ff5d73"}"/>
+      <text x="${l}" y="${h-8}" fill="#5c6473" font-size="11">${esc(firstT)}</text>
+      <text x="${w-r}" y="${h-8}" fill="#5c6473" font-size="11" text-anchor="end">${esc(lastT)}</text>
+    </svg>`;
+  }
+
+  function renderSchedule(schedule, nxt) {
+    const el = document.getElementById("schedule");
+    el.innerHTML = schedule.map(s => {
+      const chips = s.times.map(tm => {
+        const on = nxt && nxt.id === s.id && nxt.time === tm;
+        return `<em class="${on ? "next" : ""}">${esc(tm)}</em>`;
+      }).join("");
+      return `<div class="sched-row"><div class="k">${esc(s.label)}<div style="font-size:11px;color:var(--faint);font-weight:500">${esc(s.days || "")}</div></div><div class="times">${chips}</div></div>`;
+    }).join("");
+    if (nxt) {
+      document.getElementById("next-label").textContent = nxt.label;
+      document.getElementById("next-when").textContent = `${fmtMytDate(nxt.at)} · ${fmtCountdown(nxt.at)}`;
+    }
+  }
+
+  function render(data) {
+    const bal = Number(data.balance);
+    const eq = Number(data.equity);
+    document.getElementById("balance").textContent = money(bal);
+    document.getElementById("equity").textContent = money(eq);
+    const dEq = eq - bal;
+    document.getElementById("eq-delta").innerHTML = Math.abs(dEq) >= 0.005 ? signed(dEq) + " floating" : "";
+    document.getElementById("updated").textContent = "Updated " + (data.updated_myt || data.generated_at_myt || "—");
+
+    const pct = Number(data.target_progress_pct ?? 0);
+    const tgt = Number(data.target ?? 11000);
+    const prog = Number(data.target_progress_usd ?? (bal - 10000));
+    document.getElementById("target-pct").textContent = (Number.isFinite(pct) ? pct.toFixed(1) : "0") + "%";
+    document.getElementById("target-usd").textContent = signed(prog).replace(/<\/?span[^>]*>/g,"") + "  /  $1,000";
+    document.getElementById("target-usd").innerHTML = `${signed(prog)} of $1,000`;
+    document.getElementById("target-bar").style.width = Math.max(0, Math.min(100, pct)) + "%";
+    const left = tgt - bal;
+    document.getElementById("target-left").textContent = left > 0 ? money(left) + " to go" : "Target reached";
+
+    const days = data.trading_days ?? 0, need = data.trading_days_needed ?? 4;
+    document.getElementById("days").textContent = `${days} / ${need}`;
+    const dates = (data.trading_day_dates || []).join(" · ");
+    document.getElementById("days-sub").textContent = dates ? dates : "Minimum 4 trading days required";
+
+    const daily = Number(data.daily_pl ?? 0);
+    document.getElementById("daily-pl").innerHTML = signed(daily);
+    const stop = Math.abs(Number(data.internal_daily_stop ?? 200));
+    const limit = Math.abs(Number(data.ftmo_daily_limit ?? 500));
+    document.getElementById("daily-sub").textContent = `Desk stop −${money(stop).slice(1)} · FTMO daily limit ${money(limit)}`;
+    const used = Math.min(100, Math.max(0, daily < 0 ? (Math.abs(daily) / stop) * 100 : 0));
+    const bar = document.getElementById("daily-bar");
+    bar.style.width = (daily < 0 ? used : 0) + "%";
+    bar.className = used >= 80 ? "bad" : used >= 50 ? "warn" : "ok";
+
+    const room = Number(data.total_room ?? (eq - (data.total_floor ?? 9000)));
+    document.getElementById("floor-room").innerHTML = signed(room);
+    document.getElementById("floor-sub").textContent = `Equity ${money(eq)} vs floor ${money(data.total_floor ?? 9000)}`;
+
+    const opens = data.open_positions || [];
+    document.getElementById("open-positions").innerHTML = opens.length ? `<div class="pos-list">${opens.map(p => positionCard(p,false)).join("")}</div>` : `<div class="empty">No open positions</div>`;
+    const pend = data.pending_orders || [];
+    document.getElementById("pending-orders").innerHTML = pend.length ? `<div class="pos-list">${pend.map(p => positionCard(p,true)).join("")}</div>` : `<div class="empty">No pending orders</div>`;
+
+    const trades = (data.trades || []).slice().reverse();
+    document.getElementById("trades").innerHTML = trades.length ? `<div class="trade-list">${trades.map(tradeCard).join("")}</div>` : `<div class="empty">No trades yet</div>`;
+
+    drawChart(data.equity_curve || []);
+
+    const schedule = (data.schedule && data.schedule.length) ? data.schedule : DEFAULT_SCHEDULE;
+    const nxt = nextRun(schedule);
+    renderSchedule(schedule, nxt);
+
+    const pub = data.generated_at_myt ? ` Last published ${data.generated_at_myt}.` : "";
+    document.getElementById("pub-stamp").textContent = pub;
+  }
+
+  async function load() {
+    const banner = document.getElementById("banner");
+    try {
+      const res = await fetch("data.json?t=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      render(data);
+      banner.classList.remove("show");
+      banner.textContent = "";
+    } catch (err) {
+      banner.textContent = "Could not refresh data. Showing the last successful load, if any. Will retry in 60s.";
+      banner.classList.add("show");
+    }
+  }
+  let lastData = null;
+  const origRender = render;
+  render = function(data) { lastData = data; origRender(data); };
+  load();
+  setInterval(load, 60000);
+  setInterval(() => {
+    if (!lastData) return;
+    const schedule = (lastData.schedule && lastData.schedule.length) ? lastData.schedule : DEFAULT_SCHEDULE;
+    renderSchedule(schedule, nextRun(schedule));
+  }, 30000);
+  </script>
+</body>
+</html>
