@@ -4,9 +4,9 @@
   "initial_balance": 10000.0,
   "balance": 10118.08,
   "equity": 10118.08,
-  "updated_myt": "2026-11-23 16:00 MYT",
-  "generated_at_myt": "2026-11-23 16:00:33 MYT",
-  "generated_at_iso": "2026-11-23T16:00:33+08:00",
+  "updated_myt": "2026-11-23 18:08 MYT",
+  "generated_at_myt": "2026-11-23 18:08:36 MYT",
+  "generated_at_iso": "2026-11-23T18:08:36+08:00",
   "target": 11000.0,
   "target_progress_usd": 118.08,
   "target_progress_pct": 11.8,
@@ -276,10 +276,10 @@
       "t_label": "11-23 11:14"
     },
     {
-      "t": "2026-11-23T08:00:32.706977+00:00",
+      "t": "2026-11-23T10:08:36.490852+00:00",
       "balance": 10118.08,
       "equity": 10118.08,
-      "t_label": "11-23 16:00"
+      "t_label": "11-23 18:08"
     }
   ],
   "schedule": [
