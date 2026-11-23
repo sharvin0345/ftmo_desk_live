@@ -2,32 +2,45 @@
   "account_type": "2-step Phase 1 demo",
   "is_demo": true,
   "initial_balance": 10000.0,
-  "balance": 10118.08,
-  "equity": 10118.08,
-  "updated_myt": "2026-11-23 22:17 MYT",
-  "generated_at_myt": "2026-11-23 22:17:38 MYT",
-  "generated_at_iso": "2026-11-23T22:17:38+08:00",
+  "balance": 10118.05,
+  "equity": 10123.29,
+  "updated_myt": "2026-11-23 22:19 MYT",
+  "generated_at_myt": "2026-11-23 22:19:40 MYT",
+  "generated_at_iso": "2026-11-23T22:19:40+08:00",
   "target": 11000.0,
-  "target_progress_usd": 118.08,
+  "target_progress_usd": 118.05,
   "target_progress_pct": 11.8,
-  "trading_days": 3,
+  "trading_days": 4,
   "trading_days_needed": 4,
   "trading_day_dates": [
     "2026-11-18",
     "2026-11-19",
-    "2026-11-20"
+    "2026-11-20",
+    "2026-11-23"
   ],
   "ftmo_day": "2026-11-23",
   "day_start_balance": 10118.08,
   "day_start_equity": 10118.08,
-  "daily_pl": 0.0,
+  "daily_pl": 5.21,
   "internal_daily_stop": 200.0,
   "ftmo_daily_limit": 500.0,
   "ftmo_daily_floor": 9618.08,
-  "ftmo_daily_room": 500.0,
+  "ftmo_daily_room": 505.21,
   "total_floor": 9000.0,
-  "total_room": 1118.08,
-  "open_positions": [],
+  "total_room": 1123.29,
+  "open_positions": [
+    {
+      "symbol": "XAUUSD",
+      "side": "buy",
+      "lots": 0.01,
+      "open_price": 3664.26,
+      "sl": 3626.2,
+      "tp": 3740.39,
+      "profit": 5.24,
+      "ticket": "590412393",
+      "risk_usd": 21.4
+    }
+  ],
   "pending_orders": [],
   "trades": [
     {
@@ -276,10 +289,22 @@
       "t_label": "11-23 11:14"
     },
     {
-      "t": "2026-11-23T14:17:38.332632+00:00",
+      "t": "2026-11-23T22:17:38+08:00",
       "balance": 10118.08,
       "equity": 10118.08,
       "t_label": "11-23 22:17"
+    },
+    {
+      "t": "2026-11-23T22:19:40+08:00",
+      "balance": 10118.05,
+      "equity": 10123.29,
+      "t_label": "11-23 22:19"
+    },
+    {
+      "t": "2026-11-23T14:19:40.083387+00:00",
+      "balance": 10118.05,
+      "equity": 10123.29,
+      "t_label": "11-23 22:19"
     }
   ],
   "schedule": [
@@ -367,7 +392,7 @@
   ],
   "blockers": [],
   "can_trade": true,
-  "open_risk_usd": 0,
+  "open_risk_usd": 21.4,
   "consecutive_losses": 0,
   "markets_enabled": [
     "XAUUSD",
