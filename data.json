@@ -2,14 +2,14 @@
   "account_type": "2-step Phase 1 demo",
   "is_demo": true,
   "initial_balance": 10000.0,
-  "balance": 10118.05,
-  "equity": 10124.0,
-  "updated_myt": "2026-11-23 23:21 MYT",
-  "generated_at_myt": "2026-11-24 01:46:27 MYT",
-  "generated_at_iso": "2026-11-24T01:46:27+08:00",
+  "balance": 10116.07,
+  "equity": 10116.07,
+  "updated_myt": "2026-11-24 02:15 MYT",
+  "generated_at_myt": "2026-11-24 02:15:39 MYT",
+  "generated_at_iso": "2026-11-24T02:15:39+08:00",
   "target": 11000.0,
-  "target_progress_usd": 118.05,
-  "target_progress_pct": 11.8,
+  "target_progress_usd": 116.07,
+  "target_progress_pct": 11.6,
   "trading_days": 4,
   "trading_days_needed": 4,
   "trading_day_dates": [
@@ -21,26 +21,14 @@
   "ftmo_day": "2026-11-23",
   "day_start_balance": 10118.08,
   "day_start_equity": 10118.08,
-  "daily_pl": 5.92,
+  "daily_pl": -2.01,
   "internal_daily_stop": 200.0,
   "ftmo_daily_limit": 500.0,
   "ftmo_daily_floor": 9618.08,
-  "ftmo_daily_room": 505.92,
+  "ftmo_daily_room": 497.99,
   "total_floor": 9000.0,
-  "total_room": 1124.0,
-  "open_positions": [
-    {
-      "symbol": "XAUUSD",
-      "side": "buy",
-      "lots": 0.01,
-      "open_price": 3664.26,
-      "sl": 3626.2,
-      "tp": 3674.26,
-      "profit": 5.9,
-      "ticket": "590412393",
-      "risk_usd": 21.4
-    }
-  ],
+  "total_room": 1116.07,
+  "open_positions": [],
   "pending_orders": [],
   "trades": [
     {
@@ -165,6 +153,48 @@
       "open_time_myt": "2026-11-20 23:17 MYT",
       "date_myt": "2026-11-21 00:54 MYT",
       "result": 11.74
+    },
+    {
+      "ticket": "590412393",
+      "symbol": "XAUUSD",
+      "side": "buy",
+      "lots": 0.01,
+      "open_price": 3664.26,
+      "close_price": 3656.39,
+      "sl": 3626.2,
+      "tp": 3674.26,
+      "profit": -7.93,
+      "commission": -0.06,
+      "open_time": "2026-11-23 22:18:37 MYT",
+      "close_time": "2026-11-24 02:13:33 MYT",
+      "session": "ny",
+      "direction": "buy",
+      "entry": 3664.26,
+      "close_time_myt": "2026-11-24 02:13:33 MYT",
+      "open_time_myt": "2026-11-23 22:18:37 MYT",
+      "date_myt": "2026-11-24 02:13:33 MYT",
+      "result": -7.93
+    },
+    {
+      "ticket": "590687205",
+      "symbol": "XAUUSD",
+      "side": "buy",
+      "lots": 0.1,
+      "open_price": 3657.21,
+      "close_price": 3657.86,
+      "profit": 6.5,
+      "commission": -0.52,
+      "open_time": "2026-11-24 02:13:59 MYT",
+      "close_time": "2026-11-24 02:14:17 MYT",
+      "session": "ny",
+      "direction": "buy",
+      "entry": 3657.21,
+      "sl": 3626.42,
+      "tp": 3740.62,
+      "close_time_myt": "2026-11-24 02:14:17 MYT",
+      "open_time_myt": "2026-11-24 02:13:59 MYT",
+      "date_myt": "2026-11-24 02:14:17 MYT",
+      "result": 6.5
     }
   ],
   "equity_curve": [
@@ -307,10 +337,16 @@
       "t_label": "11-23 23:21"
     },
     {
-      "t": "2026-11-23T15:21:49.237832+00:00",
-      "balance": 10118.05,
-      "equity": 10124.0,
-      "t_label": "11-23 23:21"
+      "t": "2026-11-24T02:15:38+08:00",
+      "balance": 10116.07,
+      "equity": 10116.07,
+      "t_label": "11-24 02:15"
+    },
+    {
+      "t": "2026-11-23T18:15:38.793589+00:00",
+      "balance": 10116.07,
+      "equity": 10116.07,
+      "t_label": "11-24 02:15"
     }
   ],
   "schedule": [
@@ -398,7 +434,7 @@
   ],
   "blockers": [],
   "can_trade": true,
-  "open_risk_usd": 21.4,
+  "open_risk_usd": 0,
   "consecutive_losses": 0,
   "markets_enabled": [
     "XAUUSD",
