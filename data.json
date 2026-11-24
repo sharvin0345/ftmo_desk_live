@@ -4,9 +4,9 @@
   "initial_balance": 10000.0,
   "balance": 10116.07,
   "equity": 10116.07,
-  "updated_myt": "2026-11-24 02:15 MYT",
-  "generated_at_myt": "2026-11-24 02:15:39 MYT",
-  "generated_at_iso": "2026-11-24T02:15:39+08:00",
+  "updated_myt": "2026-11-24 09:17 MYT",
+  "generated_at_myt": "2026-11-24 09:17:48 MYT",
+  "generated_at_iso": "2026-11-24T09:17:48+08:00",
   "target": 11000.0,
   "target_progress_usd": 116.07,
   "target_progress_pct": 11.6,
@@ -18,14 +18,14 @@
     "2026-11-20",
     "2026-11-23"
   ],
-  "ftmo_day": "2026-11-23",
-  "day_start_balance": 10118.08,
-  "day_start_equity": 10118.08,
-  "daily_pl": -2.01,
+  "ftmo_day": "2026-11-24",
+  "day_start_balance": 10116.07,
+  "day_start_equity": 10116.07,
+  "daily_pl": 0.0,
   "internal_daily_stop": 200.0,
   "ftmo_daily_limit": 500.0,
-  "ftmo_daily_floor": 9618.08,
-  "ftmo_daily_room": 497.99,
+  "ftmo_daily_floor": 9616.07,
+  "ftmo_daily_room": 500.0,
   "total_floor": 9000.0,
   "total_room": 1116.07,
   "open_positions": [],
@@ -343,10 +343,10 @@
       "t_label": "11-24 02:15"
     },
     {
-      "t": "2026-11-23T18:15:38.793589+00:00",
+      "t": "2026-11-24T01:17:47.822099+00:00",
       "balance": 10116.07,
       "equity": 10116.07,
-      "t_label": "11-24 02:15"
+      "t_label": "11-24 09:17"
     }
   ],
   "schedule": [
