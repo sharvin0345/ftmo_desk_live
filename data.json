@@ -4,9 +4,9 @@
   "initial_balance": 10000.0,
   "balance": 10093.83,
   "equity": 10093.83,
-  "updated_myt": "2026-11-24 13:15 MYT",
-  "generated_at_myt": "2026-11-24 13:15:12 MYT",
-  "generated_at_iso": "2026-11-24T13:15:12+08:00",
+  "updated_myt": "2026-11-24 16:09 MYT",
+  "generated_at_myt": "2026-11-24 16:09:02 MYT",
+  "generated_at_iso": "2026-11-24T16:09:02+08:00",
   "target": 11000.0,
   "target_progress_usd": 93.83,
   "target_progress_pct": 9.4,
@@ -374,10 +374,10 @@
       "t_label": "11-24 13:15"
     },
     {
-      "t": "2026-11-24T05:15:11.919118+00:00",
+      "t": "2026-11-24T08:09:02.318959+00:00",
       "balance": 10093.83,
       "equity": 10093.83,
-      "t_label": "11-24 13:15"
+      "t_label": "11-24 16:09"
     }
   ],
   "schedule": [
@@ -465,7 +465,7 @@
   ],
   "blockers": [],
   "can_trade": true,
-  "open_risk_usd": 20.4,
+  "open_risk_usd": 0,
   "consecutive_losses": 1,
   "markets_enabled": [
     "XAUUSD",
