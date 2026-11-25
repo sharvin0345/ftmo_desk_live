@@ -4,9 +4,9 @@
   "initial_balance": 10000.0,
   "balance": 10113.77,
   "equity": 10113.77,
-  "updated_myt": "2026-11-25 16:04 MYT",
-  "generated_at_myt": "2026-11-25 16:04:05 MYT",
-  "generated_at_iso": "2026-11-25T16:04:05+08:00",
+  "updated_myt": "2026-11-25 16:06 MYT",
+  "generated_at_myt": "2026-11-25 16:06:07 MYT",
+  "generated_at_iso": "2026-11-25T16:06:07+08:00",
   "target": 11000.0,
   "target_progress_usd": 113.77,
   "target_progress_pct": 11.4,
@@ -31,7 +31,17 @@
   "total_floor": 9000.0,
   "total_room": 1113.77,
   "open_positions": [],
-  "pending_orders": [],
+  "pending_orders": [
+    {
+      "symbol": "XAUUSD",
+      "side": "sell",
+      "lots": 0.02,
+      "price": 3508.94,
+      "sl": 3518.94,
+      "tp": 3498.94,
+      "ticket": "592133860"
+    }
+  ],
   "trades": [
     {
       "ticket": "586845920",
@@ -411,10 +421,10 @@
       "t_label": "11-25 15:07"
     },
     {
-      "t": "2026-11-25T08:04:04.705775+00:00",
+      "t": "2026-11-25T08:06:06.923306+00:00",
       "balance": 10113.77,
       "equity": 10113.77,
-      "t_label": "11-25 16:04"
+      "t_label": "11-25 16:06"
     }
   ],
   "schedule": [
@@ -502,7 +512,7 @@
   ],
   "blockers": [],
   "can_trade": true,
-  "open_risk_usd": 0,
+  "open_risk_usd": 20.4,
   "consecutive_losses": 0,
   "markets_enabled": [
     "XAUUSD",
