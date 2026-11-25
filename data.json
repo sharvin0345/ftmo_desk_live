@@ -4,20 +4,21 @@
   "initial_balance": 10000.0,
   "balance": 10093.83,
   "equity": 10093.83,
-  "updated_myt": "2026-11-25 13:22 MYT",
-  "generated_at_myt": "2026-11-25 13:22:48 MYT",
-  "generated_at_iso": "2026-11-25T13:22:48+08:00",
+  "updated_myt": "2026-11-25 13:24 MYT",
+  "generated_at_myt": "2026-11-25 13:24:19 MYT",
+  "generated_at_iso": "2026-11-25T13:24:19+08:00",
   "target": 11000.0,
   "target_progress_usd": 93.83,
   "target_progress_pct": 9.4,
-  "trading_days": 5,
+  "trading_days": 6,
   "trading_days_needed": 4,
   "trading_day_dates": [
     "2026-11-18",
     "2026-11-19",
     "2026-11-20",
     "2026-11-23",
-    "2026-11-24"
+    "2026-11-24",
+    "2026-11-25"
   ],
   "ftmo_day": "2026-11-25",
   "day_start_balance": 10093.83,
@@ -30,7 +31,18 @@
   "total_floor": 9000.0,
   "total_room": 1093.83,
   "open_positions": [],
-  "pending_orders": [],
+  "pending_orders": [
+    {
+      "symbol": "XAUUSD",
+      "side": "sell",
+      "lots": 0.02,
+      "price": 3541.19,
+      "sl": 3551.19,
+      "tp": 3531.19,
+      "ticket": "592038432",
+      "order_type": "stop"
+    }
+  ],
   "trades": [
     {
       "ticket": "586845920",
@@ -380,10 +392,10 @@
       "t_label": "11-25 02:14"
     },
     {
-      "t": "2026-11-25T05:22:47.878976+00:00",
+      "t": "2026-11-25T05:24:19.650121+00:00",
       "balance": 10093.83,
       "equity": 10093.83,
-      "t_label": "11-25 13:22"
+      "t_label": "11-25 13:24"
     }
   ],
   "schedule": [
@@ -471,7 +483,7 @@
   ],
   "blockers": [],
   "can_trade": true,
-  "open_risk_usd": 0,
+  "open_risk_usd": 20.4,
   "consecutive_losses": 0,
   "markets_enabled": [
     "XAUUSD",
